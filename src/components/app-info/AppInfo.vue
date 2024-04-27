@@ -1,5 +1,5 @@
 <template>
-    <h1>BARCHA KINOLAR SONI: {{ allMoviesCount }}</h1>
+    <h1>BARCHA KINOLAR SONII: {{ allMoviesCount }}</h1>
     <h2>SEVIMLI KINOLAR SONI: {{ likedMoviesCount }}</h2>
 </template>
 
