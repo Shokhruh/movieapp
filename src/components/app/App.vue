@@ -8,11 +8,11 @@
     </div>
     <div class="item">
       <SearchPanel :updateTermHandler="updateTermHandler" />
-      <MovieFilter />
+      <MovieFilter :updateFilterHandler="updateFilterHandler" />
     </div>
     <div class="item">
       <MovieList
-        v-bind:movies="onSearchHandler(movies, term)"
+        v-bind:movies="onFilterHandler(onSearchHandler(movies, term), filter)"
         @onToggle="onToggleHandler"
         @onDelete="onDeleteHandler"
       />
@@ -63,6 +63,7 @@ export default {
         },
       ],
       term: '',
+      filter: 'all',
     };
   },
   methods: {
@@ -86,6 +87,16 @@ export default {
       }
 
       return arr.filter(c => c.name.toLowerCase().indexOf(term) > -1)
+    },
+    onFilterHandler(arr, filter) {
+      switch(filter) {
+        case 'popular':
+          return arr.filter(c => c.favourited);
+        case 'most_viewed':
+          return arr.filter(c => c.seen_count > 500)
+        default:
+          return arr;
+      }
     },
     updateTermHandler(term) {
       this.term = term
