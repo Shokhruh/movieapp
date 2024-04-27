@@ -7,12 +7,12 @@
       />
     </div>
     <div class="item">
-      <SearchPanel />
+      <SearchPanel :updateTermHandler="updateTermHandler" />
       <MovieFilter />
     </div>
     <div class="item">
       <MovieList
-        v-bind:movies="movies"
+        v-bind:movies="onSearchHandler(movies, term)"
         @onToggle="onToggleHandler"
         @onDelete="onDeleteHandler"
       />
@@ -62,6 +62,7 @@ export default {
           favourited: false,
         },
       ],
+      term: '',
     };
   },
   methods: {
@@ -79,6 +80,16 @@ export default {
     onDeleteHandler(id) {
       this.movies = this.movies.filter(c => c.id !== id)
     },
+    onSearchHandler(arr, term) {
+      if(term.length == 0) {
+        return arr;
+      }
+
+      return arr.filter(c => c.name.toLowerCase().indexOf(term) > -1)
+    },
+    updateTermHandler(term) {
+      this.term = term
+    }
   },
 };
 </script>
