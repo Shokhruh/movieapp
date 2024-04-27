@@ -11,7 +11,11 @@
       <MovieFilter />
     </div>
     <div class="item">
-      <MovieList v-bind:movies="movies" @onToggle="onToggleHandler" />
+      <MovieList
+        v-bind:movies="movies"
+        @onToggle="onToggleHandler"
+        @onDelete="onDeleteHandler"
+      />
     </div>
     <div class="item">
       <AddMovie @createMovie="createMovie" />
@@ -71,6 +75,9 @@ export default {
         }
         return movie;
       });
+    },
+    onDeleteHandler(id) {
+      this.movies = this.movies.filter(c => c.id !== id)
     },
   },
 };
