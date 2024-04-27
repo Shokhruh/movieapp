@@ -78,7 +78,7 @@ export default {
 
 <style>
 .content {
-  width: 1010px;
+  width: 1000px;
   min-height: 700px;
   background-color: #fff;
   margin: 0 auto;
