@@ -93,10 +93,13 @@ export default {
         case 'popular':
           return arr.filter(c => c.favourited);
         case 'most_viewed':
-          return arr.filter(c => c.seen_count > 500)
+          return arr.filter(c => c.seen_count > 700)
         default:
           return arr;
       }
+    },
+    updateFilterHandler(filter) {
+      this.filter = filter
     },
     updateTermHandler(term) {
       this.term = term

@@ -1,6 +1,10 @@
 <template>
     <div class="btn-group filter_btn">
-        <button type="button" class="btn btn-dark" @click="filterHandler('all')">Barcha kinolar</button>
+        <button 
+            type="button" 
+            class="btn btn-dark" 
+            @click="filterHandler('all')">Barcha kinolar
+        </button>
         <button type="button" class="btn btn-outline-dark" @click="filterHandler('most_viewed')">Eng ko'p ko'rilgan kinolar</button>
         <button type="button" class="btn btn-outline-dark" @click="filterHandler('popular')">Sevimli kinolar</button>
     </div>
@@ -12,7 +16,7 @@
             updateFilterHandler: {
                 type: Function,
                 required: true,
-            }
+            },
         },
         data() {
             return {
