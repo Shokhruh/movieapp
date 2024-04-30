@@ -1,12 +1,20 @@
 <template>
     <div class="btn-group filter_btn">
-        <button 
+        <PrimaryButton 
             type="button" 
-            class="btn btn-dark" 
+            :class="[filter === 'all' ? 'btn-dark' : 'btn-outline-dark']"
             @click="filterHandler('all')">Barcha kinolar
-        </button>
-        <button type="button" class="btn btn-outline-dark" @click="filterHandler('most_viewed')">Eng ko'p ko'rilgan kinolar</button>
-        <button type="button" class="btn btn-outline-dark" @click="filterHandler('popular')">Sevimli kinolar</button>
+        </PrimaryButton>
+        <PrimaryButton 
+            type="button" 
+            :class="[filter === 'most_viewed' ? 'btn-dark' : 'btn-outline-dark']" 
+            @click="filterHandler('most_viewed')">Eng ko'p ko'rilgan kinolar
+        </PrimaryButton>
+        <PrimaryButton 
+            type="button" 
+            :class="[filter === 'popular' ? 'btn-dark' : 'btn-outline-dark']" 
+            @click="filterHandler('popular')">Sevimli kinolar
+        </PrimaryButton>
     </div>
 </template>
 

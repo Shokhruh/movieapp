@@ -1,25 +1,25 @@
 <template>
   <div class="content">
-    <div class="item">
+    <Box>
       <AppInfo
         v-bind:allMoviesCount="movies.length"
         v-bind:likedMoviesCount="movies.filter((c) => c.liked).length"
       />
-    </div>
-    <div class="item">
+    </Box>
+    <Box>
       <SearchPanel :updateTermHandler="updateTermHandler" />
       <MovieFilter :updateFilterHandler="updateFilterHandler" />
-    </div>
-    <div class="item">
+    </Box>
+    <Box>
       <MovieList
         v-bind:movies="onFilterHandler(onSearchHandler(movies, term), filter)"
         @onToggle="onToggleHandler"
         @onDelete="onDeleteHandler"
       />
-    </div>
-    <div class="item">
+    </Box>
+    <Box>
       <AddMovie @createMovie="createMovie" />
-    </div>
+    </Box>
   </div>
 </template>
 

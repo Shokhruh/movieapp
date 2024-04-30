@@ -4,12 +4,13 @@
         <form action="" class="add_movie d-flex" @submit.prevent>
             <input type="text" class="form-control add_new_movie" placeholder="Kino nomi..." v-bind:value='name' @input="name = $event.target.value">
             <input type="number" class="form-control seen_count" placeholder="Ko'rishlar soni..." v-bind:value='seen_count' v-on:input="seen_count = $event.target.value">
-            <button class="btn btn-dark" v-on:click="addMovie">Qo'shish</button>
+            <PrimaryButton class="btn-dark" type="submit" v-on:click="addMovie">Qo'shish</PrimaryButton>
         </form>
     </div>
 </template>
 
 <script>
+
     export default {
         data() {
             return {
