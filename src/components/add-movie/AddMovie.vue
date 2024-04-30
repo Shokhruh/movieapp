@@ -2,8 +2,8 @@
     <div class="movie_add_form">
         <h3>Yangi kino qo'shish</h3>
         <form action="" class="add_movie d-flex" @submit.prevent>
-            <input type="text" class="form-control add_new_movie" placeholder="Kino nomi..." v-bind:value='name' @input="name = $event.target.value">
-            <input type="number" class="form-control seen_count" placeholder="Ko'rishlar soni..." v-bind:value='seen_count' v-on:input="seen_count = $event.target.value">
+            <Input type="text" class="add_new_movie" placeholder="Kino nomi..." v-model="name" />
+            <Input type="number" class="seen_count" placeholder="Ko'rishlar soni..." v-model="seen_count" />
             <PrimaryButton class="btn-dark" type="submit" v-on:click="addMovie">Qo'shish</PrimaryButton>
         </form>
     </div>

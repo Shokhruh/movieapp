@@ -1,6 +1,6 @@
 <template>
     <form>
-        <input type="text" class="form-control search_input" placeholder="Kinolarni qidirish..." :value="term" @input="changeTermHandler"/>
+        <Input type="text" class="search_input" placeholder="Kinolarni qidirish..." v-model="term" @input="changeTermHandler" />
     </form>
 </template>
 
