@@ -1,7 +1,7 @@
 <template>
     <nav aria-label="...">
         <ul class="pagination pagination-sm">
-            <li v-for="pageNumber in totalPage" class="page-item" :class="{'active': pageNumber === page}"><span class="page-link">{{ pageNumber }}</span></li>
+            <li v-for="pageNumber in totalPage" class="page-item" @click="$emit('changePage', pageNumber)" :key="pageNumber" :class="{'active': pageNumber === page}"><span class="page-link">{{ pageNumber }}</span></li>
         </ul>
     </nav>
 </template>
@@ -16,7 +16,7 @@ export default {
             type: Number,
             required: true,
         }
-    }
+    },
 }
 </script>
 <style>

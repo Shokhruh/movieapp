@@ -23,7 +23,7 @@
         @onToggle="onToggleHandler"
         @onDelete="onDeleteHandler"
       />
-      <Pagination class="pt-3" v-bind:totalPage="totalPage" v-bind:page="page" />
+      <Pagination class="pt-3" v-bind:totalPage="totalPage" v-bind:page="page" @changePage="changePageHandler" />
     </Box>
     
     <Box>
@@ -63,6 +63,9 @@ import Pagination from "@/components/pagination/Pagination.vue"
       };
     },
     methods: {
+      changePageHandler(pag) {
+        this.page = pag
+      },
       createMovie(item) {
         this.movies.push(item);
       },
@@ -126,6 +129,11 @@ import Pagination from "@/components/pagination/Pagination.vue"
         } finally {
           this.isLoading = false
         }
+      }
+    },
+    watch: {
+      page() {
+        this.fetchMovie()
       }
     },
     mounted() {
