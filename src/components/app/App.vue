@@ -10,13 +10,21 @@
       <SearchPanel :updateTermHandler="updateTermHandler" />
       <MovieFilter :updateFilterHandler="updateFilterHandler" />
     </Box>
-    <Box>
+    
+    <Box v-if="!movies.length && !isLoading">
+      <p class="text-center fs-3 text-danger">Kinolar yoq</p>
+    </Box>
+    <Box v-if="isLoading" class="text-center">
+      <Loader />
+    </Box>
+    <Box v-else>
       <MovieList
-        v-bind:movies="onFilterHandler(onSearchHandler(movies, term), filter)"
+        :movies="onFilterHandler(onSearchHandler(movies, term), filter)"
         @onToggle="onToggleHandler"
         @onDelete="onDeleteHandler"
       />
     </Box>
+    
     <Box>
       <AddMovie @createMovie="createMovie" />
     </Box>
@@ -30,6 +38,8 @@
   import MovieList from "@/components/movie-list/MovieList.vue";
   import AddMovie from "@/components/add-movie/AddMovie.vue";
   import axios from "axios";
+import Box from "@/ui-components/Box.vue";
+import Loader from "@/ui-components/Loader.vue";
   export default {
     components: {
       AppInfo,
@@ -43,6 +53,7 @@
         movies: [],
         term: '',
         filter: 'all',
+        isLoading: false,
       };
     },
     methods: {
@@ -86,8 +97,8 @@
 
       async fetchMovie() {
         try {
+          this.isLoading = true
           const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
-
           const newArr = data.map(item => ({
             id: item.id,
             name: item.title,
@@ -96,8 +107,11 @@
             seen_count: item.id * 10,
           }))
           this.movies = newArr
+          // this.isLoading = false
         } catch (error) {
           alert(error.message) 
+        } finally {
+          this.isLoading = false
         }
       }
     },
