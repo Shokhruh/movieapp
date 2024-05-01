@@ -29,6 +29,7 @@
   import MovieFilter from "@/components/movie-filter/MovieFilter.vue";
   import MovieList from "@/components/movie-list/MovieList.vue";
   import AddMovie from "@/components/add-movie/AddMovie.vue";
+  import axios from "axios";
   export default {
     components: {
       AppInfo,
@@ -39,29 +40,7 @@
     },
     data() {
       return {
-        movies: [
-          {
-            id: 1,
-            name: "Omar",
-            seen_count: 591,
-            liked: true,
-            favourited: true,
-          },
-          {
-            id: 2,
-            name: "Ertugrul",
-            seen_count: 998,
-            liked: false,
-            favourited: false,
-          },
-          {
-            id: 3,
-            name: "Empire of Osman",
-            seen_count: 710,
-            liked: true,
-            favourited: false,
-          },
-        ],
+        movies: [],
         term: '',
         filter: 'all',
       };
@@ -104,7 +83,27 @@
       updateTermHandler(term) {
         this.term = term
       },
+
+      async fetchMovie() {
+        try {
+          const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+
+          const newArr = data.map(item => ({
+            id: item.id,
+            name: item.title,
+            liked: false,
+            favourited: false,
+            seen_count: item.id * 10,
+          }))
+          this.movies = newArr
+        } catch (error) {
+          alert(error.message) 
+        }
+      }
     },
+    mounted() {
+      this.fetchMovie()
+    }
   }
 </script>
 
