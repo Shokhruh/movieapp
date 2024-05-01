@@ -23,6 +23,7 @@
         @onToggle="onToggleHandler"
         @onDelete="onDeleteHandler"
       />
+      <Pagination class="pt-3" v-bind:totalPage="totalPage" v-bind:page="page" />
     </Box>
     
     <Box>
@@ -32,14 +33,15 @@
 </template>
 
 <script>
+import Pagination from "@/components/pagination/Pagination.vue"
   import AppInfo from "@/components/app-info/AppInfo.vue";
   import SearchPanel from "@/components/search-filter/SearchPanel.vue";
   import MovieFilter from "@/components/movie-filter/MovieFilter.vue";
   import MovieList from "@/components/movie-list/MovieList.vue";
   import AddMovie from "@/components/add-movie/AddMovie.vue";
   import axios from "axios";
-import Box from "@/ui-components/Box.vue";
-import Loader from "@/ui-components/Loader.vue";
+  import Box from "@/ui-components/Box.vue";
+  import Loader from "@/ui-components/Loader.vue";
   export default {
     components: {
       AppInfo,
@@ -47,6 +49,7 @@ import Loader from "@/ui-components/Loader.vue";
       MovieList,
       AddMovie,
       MovieFilter,
+      Pagination,
     },
     data() {
       return {
@@ -54,6 +57,9 @@ import Loader from "@/ui-components/Loader.vue";
         term: '',
         filter: 'all',
         isLoading: false,
+        limit: 10,
+        page: 1,
+        totalPage: 0,
       };
     },
     methods: {
@@ -98,14 +104,21 @@ import Loader from "@/ui-components/Loader.vue";
       async fetchMovie() {
         try {
           this.isLoading = true
-          const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
-          const newArr = data.map(item => ({
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
+            params: {
+              _limit: this.limit,
+              _page: this.page,
+            }
+          })
+          const newArr = response.data.map(item => ({
             id: item.id,
             name: item.title,
             liked: false,
             favourited: false,
             seen_count: item.id * 10,
           }))
+          this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limit)
+          console.log(this.totalPage);
           this.movies = newArr
           // this.isLoading = false
         } catch (error) {
