@@ -70,7 +70,6 @@
       createMovie(item) {
         this.movies.push(item);
       },
-
       onToggleHandler({ id, prop }) {
         this.movies = this.movies.map((movie) => {
           if (movie.id == id) {
@@ -79,11 +78,9 @@
           return movie;
         });
       },
-
       onDeleteHandler(id) {
         this.movies = this.movies.filter(c => c.id !== id)
       },
-
       onSearchHandler(arr, term) {
         if(term.length == 0) {
           return arr;
@@ -91,7 +88,6 @@
 
         return arr.filter(c => c.name.toLowerCase().indexOf(term) > -1)
       },
-
       onFilterHandler(arr, filter) {
         switch(filter) {
           case 'popular':
@@ -102,30 +98,12 @@
             return arr;
         }
       },
-
       updateFilterHandler(filter) {
         this.filter = filter
       },
-
       updateTermHandler(term) {
         this.term = term
       },
-
-      mountedLog() {
-        console.log("Mounted")
-      },
-
-      updatedLog() {
-        console.log("Updated")
-      }
-    },
-
-    mounted() {
-      this.mountedLog()
-    },
-
-    updated() {
-      this.updatedLog()
     },
   }
 </script>
